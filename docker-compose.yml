@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  saint-prediction-api:
+    image: saint-prediction-api
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile
+    environment:
+      - ENVIRONMENT=development
+      - AWS_ACCESS_KEY_ID=fake
+      - AWS_SECRET_ACCESS_KEY=fake
+      - AWS_REGION=us-east-1
+      - S3_ENDPOINT=s3-server:5000
+      - LOGGING_DB_HOST=postgres:5432
+      - LOGGING_DB_DATABASE=saint
+      - LOGGING_DB_USERNAME=user
+      - LOGGING_DB_PASSWORD=password
+    ports:
+      - 4568:80
+
+networks:
+  default:
+    external: true
+    name: local-network
